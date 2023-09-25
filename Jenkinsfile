@@ -10,4 +10,6 @@ node('runner') {
             url: 'https://github.com/marla-z/triggers.git'
         ]]
     ])
+
+    println "test"
 }
