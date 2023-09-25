@@ -1,5 +1,13 @@
 node('runner') {
-    stage("Print") {
-        println "Web push test!"
-    }
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name: "*/${Branch}"]],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [],
+        submoduleCfg: [],
+        userRemoteConfigs: [[
+            credentialsId: 'ACCESS_GITHUB',
+            url: 'https://github.com/marla-z/triggers.git'
+        ]]
+    ])
 }
