@@ -1,5 +1,5 @@
 node('runner') {
     stage("Print") {
-        println "Web test!"
+        println "Web push test!"
     }
 }
