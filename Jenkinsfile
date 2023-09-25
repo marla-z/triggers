@@ -1,7 +1,7 @@
 node('runner') {
     checkout([
         $class: 'GitSCM',
-        branches: [[name: "*/${Branch}"]],
+        branches: [[name: "${Branch}"]],
         doGenerateSubmoduleConfigurations: false,
         extensions: [],
         submoduleCfg: [],
