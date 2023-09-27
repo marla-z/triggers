@@ -11,15 +11,10 @@ node('runner') {
         ]]
     ])
     stage("Env") {
-        def causes = currentBuild.rawBuild.getCauses()
+        def envVars = currentBuild.rawBuild.envVars
 
-        def branchName = null
-
-        causes.each { cause ->
-            if (cause.class.toString() == 'class hudson.triggers.SCMTrigger$Cause') {
-                branchName = cause.shortDescription.split('from ')[1]
-            }
-        }   
-        echo "Branch Name: ${branchName}!"
+        envVars.each { key, value ->
+            echo "Environment Variable: ${key} = ${value}"
+        }
     }
 }
