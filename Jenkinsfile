@@ -11,6 +11,11 @@ node('runner') {
         ]]
     ])
     stage("Env") {
+        def variables = currentBuild.rawBuild.properties
+        variables.each { prop ->
+            echo "${prop.key} = ${prop.value}"
+        }
+
         def causes = currentBuild.rawBuild.causes
         def branchName
 
