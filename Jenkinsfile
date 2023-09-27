@@ -11,7 +11,6 @@ node('runner') {
         ]]
     ])
     stage("Env") {
-        echo 'hello from common section'
-        echo "BRANCH_NAME: ${env.GIT_BRANCH.split("/")[1]}"
+        echo "${env.getEnvironment()}"
     }
 }
