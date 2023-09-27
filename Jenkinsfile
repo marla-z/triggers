@@ -11,7 +11,8 @@ node('runner') {
         ]]
     ])
     stage("Env") {
-        println "${env.getEnvironment()}"
-        env
+        params.each {param ->
+            println "${param.key} -> ${param.value} "
+        }
     }
 }
