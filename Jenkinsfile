@@ -1,5 +1,6 @@
 node('runner') {
     stage("Env") {
-        sh "printenv"
+        def branch = env.CHANGE_BRANCH
+        echo "Changed branch: ${branch}"
     }
 }
