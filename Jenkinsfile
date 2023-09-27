@@ -1,6 +1,6 @@
 node('runner') {
     stage("Env") {
         sh "env"
-        println "dsf"
+        println "${env.BRANCH_NAME}"
     }
 }
