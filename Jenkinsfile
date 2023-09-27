@@ -1,7 +1,7 @@
 node('runner') {
     checkout([
         $class: 'GitSCM',
-        branches: [[name: "${Branch}"]],
+        branches: [[name: "main"]],
         doGenerateSubmoduleConfigurations: false,
         extensions: [],
         submoduleCfg: [],
@@ -10,6 +10,5 @@ node('runner') {
             url: 'https://github.com/marla-z/triggers.git'
         ]]
     ])
-
     println "test"
 }
