@@ -1,5 +1,5 @@
 node('runner') {
     stage("Env") {
-        sh "env"
+        sh "printenv"
     }
 }
