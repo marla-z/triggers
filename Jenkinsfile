@@ -14,7 +14,7 @@ node('runner') {
         def envVars = currentBuild.rawBuild.envVars
 
         envVars.each { key, value ->
-            echo "Environment Variable: ${key} = ${value}"
+            println "Environment Variable: ${key} = ${value}"
         }
     }
 }
