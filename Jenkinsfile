@@ -11,10 +11,7 @@ node('runner') {
         ]]
     ])
     stage("Env") {
-        def envVars = currentBuild.rawBuild.envVars
-
-        envVars.each { key, value ->
-            println "Environment Variable: ${key} = ${value}"
-        }
+        echo 'hello from common section'
+        echo "BRANCH_NAME: ${env.GIT_BRANCH.split("/")[1]}"
     }
 }
