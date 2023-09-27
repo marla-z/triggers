@@ -20,6 +20,6 @@ node('runner') {
                 branchName = cause.shortDescription.split('from ')[1]
             }
         }   
-        echo "Branch Name: ${branchName}"
+        echo "Branch Name: ${branchName}!"
     }
 }
