@@ -10,5 +10,10 @@ node('runner') {
             url: 'https://github.com/marla-z/triggers.git'
         ]]
     ])
-    println "test"
+    stage("Env") {
+        def variables = currentBuild.rawBuild.properties
+        variables.each { prop ->
+            println "${prop.key} = ${prop.value}"
+        }
+    }
 }
