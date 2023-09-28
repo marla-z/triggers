@@ -23,9 +23,9 @@ pipeline {
         stage('Portainer') {
             steps {
                 script {
-                    def postgresId = sh(script: "docker run -d ${IMAGE_POSTGRES} -e POSTGRES_USER=${PG_USER} -e POSTGRES_PASSWORD=${PG_PASS} -e POSTGRES_DB=${PG_DB}", returnStdout: true).trim()
+                    def postgresId = sh(script: "docker run -d ${PG_IMAGE} -e POSTGRES_USER=${PG_USER} -e POSTGRES_PASSWORD=${PG_PASS} -e POSTGRES_DB=${PG_DB}", returnStdout: true).trim()
                     def memcachedId = sh(script: 'docker run -d memcached', returnStdout: true).trim()
-                    def phpId = sh(script: "docker run -d --link ${postgresId}:postgres --link ${memcachedId}:memcached ${IMAGE_PHP}", returnStdout: true).trim()
+                    def phpId = sh(script: "docker run -d --link ${postgresId}:postgres --link ${memcachedId}:memcached ${PG_IMAGE}", returnStdout: true).trim()
                     // Passing the containers ID to the next steps
                     env.PHP_CONTAINER_ID = phpId
                     env.PG_CONTAINER_ID = postgresId
