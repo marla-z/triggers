@@ -1,5 +1,5 @@
 pipeline {
-    agent ("runner")
+    agent any
     stages {
         stage('Get All Environment Variables') {
             steps {
