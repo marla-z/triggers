@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         // Git
-        REPO = "https://github.com/marla-z/triggers.git"
+        REPO = "https://github.com/abmcloud/u-solutions-core.git"
         BRANCH = "${env.Branch}"
         // Postgres
         PG_USER = "vagrant"
@@ -49,6 +49,7 @@ pipeline {
                     if (env.GIT_BRANCH) {
                         BRANCH = env.GIT_BRANCH
                     }
+                    println "Branch      --      ${BRANCH}"
                     checkout([
                         $class: 'GitSCM',
                         branches: [[name: "*/${BRANCH}"]],
