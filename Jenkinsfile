@@ -4,6 +4,9 @@ pipeline {
         ansiColor('xterm')
         timestamps() 
     }
+    environment {
+        BRANCH = "${GIT_BRANCH.split('/').last()}"
+    }
     stages {
         stage('Clean Workspace') {
             steps {
@@ -13,13 +16,9 @@ pipeline {
         stage('Get All Environment Variables') {
             steps {
                 script {
-                    Env()
+                    println "${BRANCH}"
                 }
             }
         }
     }
-}
-
-def Env() {
-    sh "env"
 }
