@@ -2,6 +2,7 @@ pipeline {
     agent { label 'runner' }
     options {
         ansiColor('xterm')
+        timestamps() 
     }
     stages {
         stage('Clean Workspace') {
@@ -12,20 +13,13 @@ pipeline {
         stage('Get All Environment Variables') {
             steps {
                 script {
-                    sh 'env'
+                    Env()
                 }
-            }
-        }
-    }
-    post {
-        always {
-            wrap([$class: 'TimestamperBuildWrapper']) {
-                println "end"
             }
         }
     }
 }
 
-def SetEnv() {
-    print "env"
+def Env() {
+    sh "env"
 }
