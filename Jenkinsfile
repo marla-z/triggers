@@ -33,6 +33,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Print') {
+            println "\
+                \nphp             ${PHP_CONTAINER_ID}\
+                \npg              ${PG_CONTAINER_ID}\
+                \nmc              ${MC_CONTAINER_ID}\
+            "
+        }
     }
 
     post {
