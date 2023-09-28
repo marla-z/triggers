@@ -18,9 +18,9 @@ pipeline {
         stage('Init') {
             steps {
                 script {
-                    c_pg = docker.image("${env.image_postgres}").withRun("${pg_env}")
-                    c_mc = docker.image('memcached').withRun()
-                    c_php = docker.image("${env.image_php}").inside("--link ${c_pg.id}:postgres --link ${c_mc.id}:memcached")
+                    container_pg = docker.image("${env.image_postgres}").withRun("${pg_env}")
+                    container_mc = docker.image('memcached').withRun()
+                    container_php = docker.image("${env.image_php}").inside("--link ${c_pg.id}:postgres --link ${c_mc.id}:memcached")
                 }
             }
         }
@@ -28,7 +28,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    php.inside {
+                    container_php.inside {
                         if (env.GIT_BRANCH) {
                             // Trigger git hook
                             branch = "${GIT_BRANCH.split('/').last()}"
@@ -51,9 +51,10 @@ pipeline {
             }
         }
 
-        stage('Stage 2') {
+        stage('Build') {
             steps {
                 script {
+                    println "plug"
                 }
             }
         }
@@ -61,9 +62,9 @@ pipeline {
 
     post {
         always {
-            c_pg.cleanWs()
-            c_mc.cleanWs()
-            c_php.cleanWs()
+            container_pg.cleanWs()
+            container_mc.cleanWs()
+            container_php.cleanWs()
         }
     }
 }
