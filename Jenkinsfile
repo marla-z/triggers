@@ -11,3 +11,7 @@ pipeline {
         }
     }
 }
+
+def SetEnv() {
+    print "env"
+}
