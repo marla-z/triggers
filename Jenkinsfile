@@ -34,6 +34,12 @@ pipeline {
                     // Setup php container
                     def PhpContainerID = sh(script: "docker run -d ${PHP_IMAGE} --link ${PG_C_ID}:postgres --link ${MC_C_ID}:memcached", returnStdout: true).trim()
                     env.PHP_C_ID = PhpContainerID
+
+                    println "Containers ID:\
+                        \n  Postgresql      --      ${PG_C_ID}\
+                        \n  Memcached       --      ${MC_C_ID}\
+                        \n  Php             --      ${PHP_C_ID}\
+                    "
                 }
             }
         }
@@ -41,6 +47,7 @@ pipeline {
     post {
         always {
             script {
+                // Stop containers and this trash
                 sh "docker stop ${PG_C_ID} ${MC_C_ID} ${PHP_C_ID}"
                 sh "docker rm ${PG_C_ID} ${MC_C_ID} ${PHP_C_ID}"
             }
