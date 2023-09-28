@@ -42,6 +42,7 @@ pipeline {
                     "
 
                     println "Git params:\
+                        \n    Selected branch --      ${Branch}\
                         \n    Branch:         --      ${GIT_BRANCH}\
                         \n    Repository      --      ${REPO}\
                     "
