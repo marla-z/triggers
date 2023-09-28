@@ -20,7 +20,7 @@ pipeline {
                 script {
                     container_pg = docker.image("${env.image_postgres}").withRun("${pg_env}")
                     container_mc = docker.image('memcached').withRun()
-                    container_php = docker.image("${env.image_php}").inside("--link ${c_pg.id}:postgres --link ${c_mc.id}:memcached")
+                    container_php = docker.image("${env.image_php}").inside("--link ${container_pg.id}:postgres --link ${container_mc.id}:memcached")
                 }
             }
         }
