@@ -1,12 +1,16 @@
-pipeline {
-    agent any
-    stages {
-        stage('Get All Environment Variables') {
-            steps {
-                script {
-                    sh "echo ${GIT_BRANCH}"
-                }
-            }
-        }
+node('runner') {
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name: "main"]],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [],
+        submoduleCfg: [],
+        userRemoteConfigs: [[
+            credentialsId: 'ACCESS_GITHUB',
+            url: 'https://github.com/marla-z/triggers.git'
+        ]]
+    ])
+    stage("Env") {
+        println "${env.getEnvironment()}"
     }
 }
