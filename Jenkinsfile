@@ -1,12 +1,26 @@
 pipeline {
     agent { label 'runner' }
+    options {
+        ansiColor('xterm')
+    }
     stages {
-        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-            step([$class: 'WsCleanup'])
-            wrap([$class: 'TimestamperBuildWrapper']) {
-                stage("Env") {
-                    SetEnv()
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('Get All Environment Variables') {
+            steps {
+                script {
+                    sh 'env'
                 }
+            }
+        }
+    }
+    post {
+        always {
+            wrap([$class: 'TimestamperBuildWrapper']) {
+                println "end"
             }
         }
     }
