@@ -41,6 +41,9 @@ pipeline {
                 sh "docker stop ${env.PHP_CONTAINER_ID}"
                 sh "docker stop ${env.PG_CONTAINER_ID}"
                 sh "docker stop ${env.MC_CONTAINER_ID}"
+                sh "docker rm ${env.PHP_CONTAINER_ID}"
+                sh "docker rm ${env.PG_CONTAINER_ID}"
+                sh "docker rm ${env.MC_CONTAINER_ID}"
             }
         }
     }
