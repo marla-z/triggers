@@ -35,11 +35,33 @@ pipeline {
                     def PhpContainerID = sh(script: "docker run -d ${PHP_IMAGE} --link ${PG_C_ID}:postgres --link ${MC_C_ID}:memcached", returnStdout: true).trim()
                     env.PHP_C_ID = PhpContainerID
 
-                    println "Containers ID:\
-                        \n  Postgresql      --      ${PG_C_ID}\
-                        \n  Memcached       --      ${MC_C_ID}\
-                        \n  Php             --      ${PHP_C_ID}\
+                    println "Containers:\
+                        \n    Postgresql      --      ${PG_C_ID}\
+                        \n    Memcached       --      ${MC_C_ID}\
+                        \n    Php             --      ${PHP_C_ID}\
                     "
+                }
+            }
+        }
+        stage('Checkout') {
+            steps {
+                script {
+                    if (env.GIT_BRANCH) {
+                        BRANCH = env.GIT_BRANCH
+                    }
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "*/${BRANCH}"]],
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [
+                            [
+                                credentialsId: 'ACCESS_GITHUB', 
+                                url: "${REPO}"
+                            ]
+                        ]
+                    ])
                 }
             }
         }
