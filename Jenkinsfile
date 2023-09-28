@@ -14,7 +14,7 @@ pipeline {
         PG_USER = "vagrant"
         PG_PASS = "vagrant"
         PG_DB = "u_solutions_core_tests"
-        PG_ENV = "-e POSTGRES_USER=${pg_user} -e POSTGRES_PASSWORD=${pg_pass} -e POSTGRES_DB=${pg_db}"
+        PG_ENV = "-e POSTGRES_USER=${PG_USER} -e POSTGRES_PASSWORD=${PG_PASS} -e POSTGRES_DB=${PG_DB}"
         // Docker images
         PHP_IMAGE = "u_solutions_core_php-8.1"
         PG_IMAGE = "postgres:14"
