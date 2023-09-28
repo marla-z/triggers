@@ -21,9 +21,9 @@ pipeline {
         stage('Init') {
             steps {
                 script {
-                    pg = docker.image("${env.image_postgres}").withRun("${pg_env}")
+                    pg = docker.image("${image_postgres}").withRun("${pg_env}")
                     mc = docker.image('memcached').withRun()
-                    php = docker.image("${env.image_php}").inside("--link ${pg.id}:postgres --link ${mc.id}:memcached")
+                    php = docker.image("${image_php}").inside("--link ${pg.id}:postgres --link ${mc.id}:memcached")
                 }
             }
         }
