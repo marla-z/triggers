@@ -1,6 +1,12 @@
-node('runner') {
-    stage("Env") {
-        sh "env"
-        println "stop"
+pipeline {
+    agent any
+    stages {
+        stage('Get All Environment Variables') {
+            steps {
+                script {
+                    sh "echo ${GIT_BRANCH}"
+                }
+            }
+        }
     }
 }
