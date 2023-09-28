@@ -7,6 +7,7 @@ pipeline {
     environment {
         // Git
         repo = "https://github.com/marla-z/triggers.git"
+        branch = "${env.Branch}"
         // Postgres
         pg_user = "vagrant"
         pg_pass = "vagrant"
@@ -22,7 +23,7 @@ pipeline {
                 script {
                     pg = docker.image("${env.image_postgres}").withRun("${pg_env}")
                     mc = docker.image('memcached').withRun()
-                    php = docker.image("${env.image_php}")
+                    php = docker.image("${env.image_php}").inside("--link ${pg.id}:postgres --link ${mc.id}:memcached")
                 }
             }
         }
@@ -30,23 +31,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    php.inside("--link ${pg.id}:postgres --link ${mc.id}:memcached") {
-                        if (env.GIT_BRANCH) {
-                            branch = "${GIT_BRANCH.split('/').last()}"
-                            checkout([
-                                $class: 'GitSCM',
-                                branches: [[name: "*/${branch}"]],
-                                doGenerateSubmoduleConfigurations: false,
-                                extensions: [],
-                                submoduleCfg: [],
-                                userRemoteConfigs: [
-                                    [
-                                        credentialsId: 'ACCESS_GITHUB', 
-                                        url: "${repo}"
-                                    ]
-                                ]
-                            ])
-                        }
+                    php {
+                        echo "21"
                     }
                 }
             }
@@ -57,16 +43,6 @@ pipeline {
                 script {
                     echo "plug"
                 }
-            }
-        }
-    }
-
-    post {
-        always {
-            script {
-                pg.cleanWs()
-                mc.cleanWs()
-                php.cleanWs()
             }
         }
     }
