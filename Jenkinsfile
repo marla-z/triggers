@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         // Git
-        REPO = "https://github.com/abmcloud/u-solutions-core.git"
+        REPO = "https://github.com/marla-z/triggers.git"
         BRANCH = "${env.Branch}"
         // Postgres
         PG_USER = "vagrant"
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     if (env.GIT_BRANCH) {
-                        BRANCH = env.GIT_BRANCH
+                        BRANCH = env.GIT_BRANCH.split('/').last()
                     }
                     println "Branch      --      ${BRANCH}"
                     checkout([
