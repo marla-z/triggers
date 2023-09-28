@@ -40,20 +40,14 @@ pipeline {
                         \n    Memcached       --      ${MC_C_ID}\
                         \n    Php             --      ${PHP_C_ID}\
                     "
+
+                    println "Git params:\
+                        \n    Branch:         --      ${BRANCH_NAME}\
+                        \n    Repository      --      ${REPO}\
+                    "
                 }
             }
         }
-        stage('Checkout') {
-            steps {
-                script {
-                    if (env.GIT_BRANCH) {
-                        BRANCH = env.GIT_BRANCH.split('/').last()
-                    }
-                    println "Branch      --      ${BRANCH}"
-                }
-            }
-        }
-    }
     post {
         always {
             script {
