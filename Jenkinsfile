@@ -1,10 +1,11 @@
 pipeline {
     agent { label 'runner' }
     stages {
-        stage('Get All Environment Variables') {
-            steps {
-                script {
-                    sh 'env'
+        wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
+            step([$class: 'WsCleanup'])
+            wrap([$class: 'TimestamperBuildWrapper']) {
+                stage("Env") {
+                    SetEnv()
                 }
             }
         }
