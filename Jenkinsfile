@@ -50,19 +50,6 @@ pipeline {
                         BRANCH = env.GIT_BRANCH.split('/').last()
                     }
                     println "Branch      --      ${BRANCH}"
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${BRANCH}"]],
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions: [],
-                        submoduleCfg: [],
-                        userRemoteConfigs: [
-                            [
-                                credentialsId: 'ACCESS_GITHUB', 
-                                url: "${REPO}"
-                            ]
-                        ]
-                    ])
                 }
             }
         }
