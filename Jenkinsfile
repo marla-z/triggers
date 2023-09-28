@@ -11,6 +11,6 @@ node('runner') {
         ]]
     ])
     stage("Env") {
-        println "${env.getEnvironment()}"
+        sh "env"
     }
 }
