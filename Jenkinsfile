@@ -46,6 +46,11 @@ pipeline {
                         \n    Branch:         --      ${GIT_BRANCH}\
                         \n    Repository      --      ${REPO}\
                     "
+                    if (currentBuild.causes.toString().contains('UserIdCause')) {
+                        println 'Цей пайплайн був запущений вручну'
+                    } else {
+                        println 'Цей пайплайн був запущений автоматично'
+                    }
                 }
             }
         }
