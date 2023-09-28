@@ -24,7 +24,7 @@ pipeline {
         stage('Portainer') {
             steps {
                 script {
-                    def PostgresContainerID = docker.image("${PG_IMAGE}").withRun("${PG_ENV}")
+                    def PostgresContainerID = sh(script: "docker run -d ${PG_IMAGE} ${PG_ENV}", returnStdout: true).trim()
                     env.PG_C_ID = PostgresContainerID
                     print "${PG_C_ID}"
                 }
@@ -34,7 +34,8 @@ pipeline {
     post {
         always {
             script {
-                docker.stop(env.PG_C_ID)
+                sh "docker stop ${PG_C_ID}"
+                sh "docker rm ${PG_C_ID}"
             }
         }
     }
