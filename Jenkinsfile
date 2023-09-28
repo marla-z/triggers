@@ -6,7 +6,6 @@ pipeline {
     }
     environment {
         // Git
-        branch = "${env.Branch.split('/').last()}"
         repo = "https://github.com/marla-z/triggers.git"
         // Postgres
         pg_user = "vagrant"
@@ -21,9 +20,9 @@ pipeline {
         stage('Init') {
             steps {
                 script {
-                    pg = docker.image("${image_postgres}").withRun("${pg_env}")
+                    pg = docker.image("${env.image_postgres}").withRun("${pg_env}")
                     mc = docker.image('memcached').withRun()
-                    php = docker.image("${image_php}").inside("--link ${pg.id}:postgres --link ${mc.id}:memcached")
+                    php = docker.image("${env.image_php}")
                 }
             }
         }
@@ -31,24 +30,23 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    php.inside {
+                    php.inside("--link ${pg.id}:postgres --link ${mc.id}:memcached") {
                         if (env.GIT_BRANCH) {
-                            // Trigger git hook
                             branch = "${GIT_BRANCH.split('/').last()}"
-                        }
-                        checkout([
-                            $class: 'GitSCM',
-                            branches: [[name: "*/${branch}"]],
-                            doGenerateSubmoduleConfigurations: false,
-                            extensions: [],
-                            submoduleCfg: [],
-                            userRemoteConfigs: [
-                                [
-                                    credentialsId: 'ACCESS_GITHUB', 
-                                    url: "${repo}"
+                            checkout([
+                                $class: 'GitSCM',
+                                branches: [[name: "*/${branch}"]],
+                                doGenerateSubmoduleConfigurations: false,
+                                extensions: [],
+                                submoduleCfg: [],
+                                userRemoteConfigs: [
+                                    [
+                                        credentialsId: 'ACCESS_GITHUB', 
+                                        url: "${repo}"
+                                    ]
                                 ]
-                            ]
-                        ])
+                            ])
+                        }
                     }
                 }
             }
@@ -57,7 +55,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    println "plug"
+                    echo "plug"
                 }
             }
         }
