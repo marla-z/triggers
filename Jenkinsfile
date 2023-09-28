@@ -42,7 +42,7 @@ pipeline {
                     "
 
                     println "Git params:\
-                        \n    Branch:         --      ${BRANCH_NAME}\
+                        \n    Branch:         --      ${GIT_BRANCH}\
                         \n    Repository      --      ${REPO}\
                     "
                 }
