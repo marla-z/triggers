@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     php.inside {
-                        if (env.GIT_BRANCH}) {
+                        if (env.GIT_BRANCH) {
                             // Trigger git hook
                             branch = "${GIT_BRANCH.split('/').last()}"
                         }
@@ -61,7 +61,6 @@ pipeline {
 
     post {
         always {
-            // Закрити всі контейнери після завершення пайплайну
             c_pg.cleanWs()
             c_mc.cleanWs()
             c_php.cleanWs()
