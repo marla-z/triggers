@@ -1,6 +1,14 @@
-node('runner') {
-    stage("Env") {
-        def branch = env.CHANGE_BRANCH
-        echo "Changed branch: ${branch}"
+pipeline {
+    agent any
+    stages {
+        stage('Get All Environment Variables') {
+            steps {
+                script {
+                    env.keySet().each { key ->
+                        echo "${key}: ${env[key]}"
+                    }
+                }
+            }
+        }
     }
 }
