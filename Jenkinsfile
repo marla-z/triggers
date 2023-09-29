@@ -1,29 +1,25 @@
 pipeline {
-    agent any
-
-    environment {
-        CHANGE_BRANCH = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-    }
-
+    agent { label "runner" }
+ 
     stages {
-        stage('Отримання коду з SCM') {
+        stage('Перевірка Jenkinsfile') {
             steps {
                 script {
-                    checkout scm
+                    if (fileExists('Jenkinsfile')) {
+                        echo 'Файл Jenkinsfile був оновлений'
+                    } else {
+                        echo 'Файл Jenkinsfile залишився незмінним'
+                    }
                 }
             }
         }
+
+        // Додай інші етапи тут
     }
 
     post {
         always {
-            script {
-                if (env.CHANGE_BRANCH) {
-                    echo "Пайплайн був запущений з гілки ${env.CHANGE_BRANCH}"
-                } else {
-                    echo 'Пайплайн був запущений вручну'
-                }
-            }
+            // Якщо потрібно виконати додаткові дії після завершення пайплайну
         }
     }
 }
