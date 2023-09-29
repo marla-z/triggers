@@ -5,11 +5,7 @@ pipeline {
         stage('Перевірка Jenkinsfile') {
             steps {
                 script {
-                    if (fileExists('Jenkinsfile')) {
-                        echo 'Файл Jenkinsfile був оновлений'
-                    } else {
-                        echo 'Файл Jenkinsfile залишився незмінним'
-                    }
+                    sh "env"
                 }
             }
         }
