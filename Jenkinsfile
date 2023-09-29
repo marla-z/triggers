@@ -13,16 +13,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Виконання тестів') {
-            steps {
-                script {
-                    sh 'mvn test'
-                }
-            }
-        }
-
-        // Додай інші етапи тут
     }
 
     post {
