@@ -1,3 +1,3 @@
 node ("main") {
-    sh "env"
+    echo "env:  ${env.getEnvironment()}"
 }
