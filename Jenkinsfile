@@ -1,15 +1,13 @@
 pipeline {
-    agent { label "runner" }
- 
+    agent any
     stages {
-        stage('Перевірка Jenkinsfile') {
+        stage('Example') {
             steps {
                 script {
-                    sh "env"
+                    def branchName = env.GIT_BRANCH
+                    echo "Останній коміт був в гілку: ${branchName}"
                 }
             }
         }
-
-        // Додай інші етапи тут
     }
 }
