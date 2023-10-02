@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     def branchName = env.GIT_BRANCH
-                    echo "Останній коміт був в гілку: ${branchName}"
+                    println "Останній коміт був в гілку: ${branchName}"
                 }
             }
         }
