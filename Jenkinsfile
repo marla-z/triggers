@@ -5,7 +5,6 @@ pipeline {
             steps {
                 script {
                     sh "env"
-                    }
                 }
             }
         }
